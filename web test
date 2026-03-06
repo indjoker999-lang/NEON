@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Local Shop</title>
+
+<style>
+body{
+margin:0;
+font-family:Arial, sans-serif;
+background:#f5f5f5;
+}
+
+header{
+position:relative;
+text-align:center;
+color:white;
+}
+
+.hero{
+height:90vh;
+background:url("https://i.ibb.co/HpYSLJ1K/1772808856702337039440238602350.jpg") center/cover no-repeat;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+}
+
+.hero h1{
+font-size:40px;
+margin:10px;
+}
+
+.hero p{
+font-size:18px;
+}
+
+.hero button{
+margin-top:20px;
+padding:12px 25px;
+font-size:16px;
+border:none;
+background:#ff6600;
+color:white;
+cursor:pointer;
+border-radius:6px;
+}
+
+section{
+padding:40px 20px;
+}
+
+.products{
+display:flex;
+overflow-x:auto;
+gap:20px;
+scroll-behavior:smooth;
+}
+
+.card{
+min-width:250px;
+background:white;
+border-radius:10px;
+box-shadow:0 4px 10px rgba(0,0,0,0.1);
+padding:15px;
+text-align:center;
+}
+
+.card img{
+width:100%;
+border-radius:8px;
+}
+
+.price{
+font-weight:bold;
+margin:10px 0;
+}
+
+.card button{
+background:#28a745;
+border:none;
+padding:10px 15px;
+color:white;
+border-radius:5px;
+cursor:pointer;
+}
+
+.cart{
+background:white;
+padding:20px;
+border-radius:10px;
+max-width:500px;
+margin:auto;
+box-shadow:0 4px 10px rgba(0,0,0,0.1);
+}
+
+.cart input{
+width:100%;
+padding:10px;
+margin:8px 0;
+border-radius:5px;
+border:1px solid #ccc;
+}
+
+.cart button{
+background:#007bff;
+color:white;
+border:none;
+padding:12px;
+width:100%;
+border-radius:6px;
+cursor:pointer;
+}
+
+.whatsapp{
+position:fixed;
+bottom:20px;
+right:20px;
+background:#25D366;
+color:white;
+font-size:20px;
+padding:15px;
+border-radius:50%;
+text-decoration:none;
+}
+
+</style>
+</head>
+
+<body>
+
+<header>
+<div class="hero">
+<h1>The Local Shop</h1>
+<p>Fresh Finds, Best Prices</p>
+<button onclick="document.getElementById('products').scrollIntoView({behavior:'smooth'})">
+Shop Now
+</button>
+</div>
+</header>
+
+<section id="products">
+<h2>Products</h2>
+
+<div class="products">
+
+<div class="card">
+<img src="https://i.ibb.co/PvKDpvs9/HD-wallpaper-pc-gamer.jpg">
+<h3>Gaming Poster</h3>
+<p class="price">₹499</p>
+<button onclick="addToCart('Gaming Poster',499)">Add to Cart</button>
+</div>
+
+<div class="card">
+<img src="https://i.ibb.co/q3ZxQj63/images-2.jpg">
+<h3>Product Two</h3>
+<p class="price">₹299</p>
+<button onclick="addToCart('Product Two',299)">Add to Cart</button>
+</div>
+
+<div class="card">
+<img src="https://i.ibb.co/HLbn2Fhx/images-1.jpg">
+<h3>Product Three</h3>
+<p class="price">₹199</p>
+<button onclick="addToCart('Product Three',199)">Add to Cart</button>
+</div>
+
+</div>
+</section>
+
+<section>
+<div class="cart">
+
+<h2>Your Cart</h2>
+
+<ul id="cartList"></ul>
+
+<input type="text" id="name" placeholder="Customer Name">
+<input type="tel" id="phone" placeholder="Phone Number">
+
+<button onclick="placeOrder()">Place Order</button>
+
+</div>
+</section>
+
+<a class="whatsapp" href="https://wa.me/99999999" target="_blank">💬</a>
+
+<script>
+
+let cart=[];
+
+function addToCart(name,price){
+cart.push({name,price});
+displayCart();
+}
+
+function displayCart(){
+let list=document.getElementById("cartList");
+list.innerHTML="";
+cart.forEach(item=>{
+let li=document.createElement("li");
+li.textContent=item.name+" - ₹"+item.price;
+list.appendChild(li);
+});
+}
+
+function placeOrder(){
+
+let name=document.getElementById("name").value;
+let phone=document.getElementById("phone").value;
+
+if(cart.length===0){
+alert("Cart is empty");
+return;
+}
+
+let items=cart.map(i=>i.name+" ₹"+i.price).join("%0D%0A");
+
+let body=`Customer Name: ${name}%0D%0APhone: ${phone}%0D%0A%0D%0AItems:%0D%0A${items}`;
+
+window.location.href=`mailto:indjoker999@gmail.com?subject=New Order&body=${body}`;
+
+}
+
+</script>
+
+</body>
+</html>
